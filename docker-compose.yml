@@ -4,6 +4,7 @@ services:
     build: .
     volumes:
       - /exports:/exports
+      - /lib/modules:/lib/modules
     ports:
       - '2049:2049'
       - '111:111/udp'
