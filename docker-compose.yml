@@ -1,0 +1,14 @@
+version: '2'
+services:
+  server:
+    build: .
+    volumes:
+      - /exports:/exports
+    ports:
+      - '2049:2049'
+      - '111:111/udp'
+    privileged: true
+    cap_add:
+      - ALL
+    environment:
+      - EXPORTS=/exports *(rw,sync,no_subtree_check,fsid=0,no_root_squash)
