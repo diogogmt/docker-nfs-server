@@ -1,10 +1,12 @@
 #!/bin/bash
 
+confd -onetime -backend env
+
 echo "" > /etc/exports
 
 if [ -z ${EXPORTS+x} ]; then
   echo "Setting default value for exports";
-  EXPORTS="/exports *(rw,sync,no_subtree_check,fsid=0,no_root_squash)"
+  EXPORTS="/exports *(rw,async,no_root_squash,no_subtree_check)"
 fi
 
 IFS=";"
@@ -13,7 +15,4 @@ for line in $EXPORTS; do
 done
 cat /etc/exports
 
-rpcbind
-service nfs-kernel-server start
-
-/init
+supervisord -c /etc/supervisor/conf.d/supervisord.conf

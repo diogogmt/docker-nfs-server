@@ -1,0 +1,6 @@
+[template]
+src = "nfs-kernel-server.tmpl"
+dest = "/etc/default/nfs-kernel-server"
+keys = [
+ "/nfs",
+ ]

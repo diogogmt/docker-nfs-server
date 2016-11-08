@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - /exports:/exports
-      - /lib/modules:/lib/modules
+      - /lib/modules:/lib/modules:ro
     ports:
       - '2049:2049'
       - '111:111/udp'
@@ -12,4 +12,8 @@ services:
     cap_add:
       - ALL
     environment:
-      - EXPORTS=/exports *(rw,sync,no_subtree_check,fsid=0,no_root_squash)
+      - EXPORTS=/exports *(rw,async,no_root_squash,no_subtree_check)
+      - RPC_BIND_OPTS="-f -d"
+      - NFS_RPC_NFSD_COUNT=8
+      - NFS_RPC_MOUNT_OPTS=--manage-gids -F --debug all
+      - NFS_RPC_NFSD_OPTS=--debug
